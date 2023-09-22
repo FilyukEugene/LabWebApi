@@ -24,6 +24,7 @@ app.MapControllers();
 
 app.Run();*/
 
+using LabWebAPI.Database;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -33,6 +34,12 @@ builder.Services.AddSpaStaticFiles(configuration =>
 {
     configuration.RootPath = "ClientApp/dist";
 });
+
+//Infrastructure lab2
+builder.Services.AddRepositories();
+builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
