@@ -24,8 +24,11 @@ app.MapControllers();
 
 app.Run();*/
 
+using LabWebApi.Services;
+using LabWebApi.Web.Extensions;
 using LabWebAPI.Database;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -38,7 +41,20 @@ builder.Services.AddSpaStaticFiles(configuration =>
 //Infrastructure lab2
 builder.Services.AddRepositories();
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddIdentityDbContext();
 
+//Custom swagger
+builder.Services.AddSwagger();
+
+builder.Services.AddAutoMapper();
+
+builder.Services.AddCustomServices();
+
+//Configure JWT
+builder.Services.ConfigJwtOptions(builder.Configuration.GetSection("JwtOptions"));
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+//SeedingRoles.SystemRoles();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -46,6 +62,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.AddSystemRolesToDb();
+app.ConfigureCustomExceptionMiddleware();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
