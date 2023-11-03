@@ -11,12 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatModule } from './core/mat.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './pages/auth-components/login/login.component';
-import { RegistrationComponent } from './pages/auth-components/registration/registration.component';
 import { HomeComponent } from './pages/home-components/home/home.component';
 import { HeaderComponent } from './pages/app-components/header/header.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor';
+import { RegistrationComponent } from './pages/auth-components/registration/registration.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
