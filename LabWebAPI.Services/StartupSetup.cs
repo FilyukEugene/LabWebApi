@@ -18,6 +18,7 @@ namespace LabWebApi.Services
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ApplicationProfile());
+                mc.AddProfile(new ProductProfile());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -27,6 +28,8 @@ namespace LabWebApi.Services
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         public static void ConfigJwtOptions(this IServiceCollection services, IConfiguration config)

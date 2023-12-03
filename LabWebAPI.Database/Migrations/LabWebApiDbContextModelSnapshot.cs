@@ -17,10 +17,45 @@ namespace LabWebAPI.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PublicationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UserWhoCreatedId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserWhoCreatedId");
+
+                    b.ToTable("Products");
+                });
 
             modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.RefreshToken", b =>
                 {
@@ -260,6 +295,17 @@ namespace LabWebAPI.Database.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Product", b =>
+                {
+                    b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "UserWhoCreated")
+                        .WithMany("Products")
+                        .HasForeignKey("UserWhoCreatedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("UserWhoCreated");
+                });
+
             modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.RefreshToken", b =>
                 {
                     b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "User")
@@ -320,6 +366,11 @@ namespace LabWebAPI.Database.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.User", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

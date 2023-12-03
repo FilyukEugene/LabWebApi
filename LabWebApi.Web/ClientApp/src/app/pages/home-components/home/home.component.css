@@ -1,9 +1,21 @@
-.container {
+.card-list {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    gap: 20px;
     height: 100vh;
-    }
-    mat-card {
+}
+
+.card {
+    width: 300px;
+}
+
+mat-card {
     text-align: center;
-    }
+    background-color: darkgray;
+}
+
+a.no-underline {
+    text-decoration: none;
+}

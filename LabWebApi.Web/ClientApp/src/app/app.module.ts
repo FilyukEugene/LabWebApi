@@ -17,6 +17,11 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor';
 import { RegistrationComponent } from './pages/auth-components/registration/registration.component';
+import { EditUserDialogComponent } from './pages/home-components/admin-panel/edit-user-dialog/edit-user-dialog.component';
+import { UsersListComponent } from './pages/home-components/admin-panel/users-list/users-list.component';
+import { EnumNamePipe } from './core/pipes/EnumNamePipe';
+
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -28,7 +33,10 @@ export function tokenGetter() {
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    UsersListComponent,
+    EditUserDialogComponent,
+    EnumNamePipe
     ],
   imports: [
     BrowserModule,
@@ -46,6 +54,7 @@ export function tokenGetter() {
       }
       }),
     FlexLayoutModule,
+    NgxDatatableModule,
   ],
   providers: [
     AuthInterceptorProvider,

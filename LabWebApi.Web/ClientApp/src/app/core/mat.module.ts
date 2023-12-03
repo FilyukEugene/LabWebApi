@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ MatButtonModule,
 MatTableModule,
 MatSlideToggleModule,
 MatSelectModule,
-MatOptionModule
+MatOptionModule,
+MatDialogModule
 ]
 })
 export class MatModule { }

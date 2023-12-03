@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  cards: any[] = [
+    { title: 'Users List', content: 'List of all users in system', path: 'users-list' }
+  ];
   constructor() { }
-
   ngOnInit() {
   }
-
 }

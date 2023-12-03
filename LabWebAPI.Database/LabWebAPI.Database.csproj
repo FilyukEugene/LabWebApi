@@ -21,4 +21,8 @@
     <ProjectReference Include="..\LabWebAPI.Services\LabWebAPI.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
