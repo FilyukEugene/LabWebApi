@@ -18,7 +18,9 @@ import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor';
 import { RegistrationComponent } from './pages/auth-components/registration/registration.component';
 import { EditUserDialogComponent } from './pages/home-components/admin-panel/edit-user-dialog/edit-user-dialog.component';
+import { EditProductDialogComponent } from './pages/home-components/admin-panel/edit-product-dialog/edit-product-dialog.component';
 import { UsersListComponent } from './pages/home-components/admin-panel/users-list/users-list.component';
+import { ProductsListComponent } from './pages/home-components/admin-panel/product-list/product-list.component';
 import { EnumNamePipe } from './core/pipes/EnumNamePipe';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -35,7 +37,9 @@ export function tokenGetter() {
     HomeComponent,
     HeaderComponent,
     UsersListComponent,
+    ProductsListComponent,
     EditUserDialogComponent,
+    EditProductDialogComponent,
     EnumNamePipe
     ],
   imports: [
