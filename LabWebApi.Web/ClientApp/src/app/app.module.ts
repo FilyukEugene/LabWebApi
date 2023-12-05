@@ -19,6 +19,7 @@ import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor'
 import { RegistrationComponent } from './pages/auth-components/registration/registration.component';
 import { EditUserDialogComponent } from './pages/home-components/admin-panel/edit-user-dialog/edit-user-dialog.component';
 import { EditProductDialogComponent } from './pages/home-components/admin-panel/edit-product-dialog/edit-product-dialog.component';
+import { DetailProductDialogComponent } from './pages/home-components/admin-panel/detail-product-dialog/detail-product-dialog.component';
 import { UsersListComponent } from './pages/home-components/admin-panel/users-list/users-list.component';
 import { ProductsListComponent } from './pages/home-components/admin-panel/product-list/product-list.component';
 import { EnumNamePipe } from './core/pipes/EnumNamePipe';
@@ -40,6 +41,7 @@ export function tokenGetter() {
     ProductsListComponent,
     EditUserDialogComponent,
     EditProductDialogComponent,
+    DetailProductDialogComponent,
     EnumNamePipe
     ],
   imports: [

@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/core/services/Product.service';
 import { AlertService } from 'src/app/core/services/Alert.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from 'src/app/pages/home-components/admin-panel/edit-product-dialog/edit-product-dialog.component';
+import { DetailProductDialogComponent } from 'src/app/pages/home-components/admin-panel/detail-product-dialog/detail-product-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -56,5 +57,16 @@ export class ProductsListComponent implements OnInit {
         this.products = newList;
       });
     }
+  }
+
+  async viewProduct(product: ProductInfo): Promise<void> {
+    const dialogRef = this.dialog.open(DetailProductDialogComponent, {
+      data: { ...product }
+    });
+  
+    // You can perform additional logic after the dialog is closed if needed
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // Add any logic here if necessary
+    });
   }
 }
