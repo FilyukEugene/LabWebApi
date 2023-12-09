@@ -28,7 +28,7 @@ builder.Services.AddCustomServices();
 //Configure JWT
 builder.Services.ConfigJwtOptions(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddJwtAuthentication(builder.Configuration);
-
+builder.Services.ConfigureImageSettings(builder.Configuration);
 //SeedingRoles.SystemRoles();
 
 var app = builder.Build();
