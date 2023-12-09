@@ -30,6 +30,9 @@ namespace LabWebApi.Services
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ILocaleStorageService, LocaleStorageService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void ConfigJwtOptions(this IServiceCollection services, IConfiguration config)

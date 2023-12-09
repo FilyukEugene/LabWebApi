@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabWebAPI.Database.Migrations
 {
     [DbContext(typeof(LabWebApiDbContext))]
-    [Migration("20231202182053_Initial")]
-    partial class Initial
+    [Migration("20231209172352_InitialRoles")]
+    partial class InitialRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

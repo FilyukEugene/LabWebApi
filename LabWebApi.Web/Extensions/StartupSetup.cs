@@ -73,7 +73,13 @@ namespace LabWebApi.Web.Extensions
             app.UseMiddleware<ExceptionHandlingMiddleware>();
         }
 
-        
+
+
+        public static void ConfigureImageSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<ImageSettings>(configuration.GetSection("ImageSettings"));
+
+        }
 
 
     }
