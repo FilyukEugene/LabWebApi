@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
     this.authenticationService.registration(this.formGroup.value).subscribe(
       () => {
         this.alertService.successAlert("Successful", "Registered!");
-        this.router.navigate(['user-home']);
+        this.router.navigate(['login']);
         this.eventEmitterService.onComponentInvoke();
       }
     );

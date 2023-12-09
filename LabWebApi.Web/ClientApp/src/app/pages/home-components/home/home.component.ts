@@ -28,6 +28,6 @@ export class HomeComponent implements OnInit {
 
   isAdminRole(user: UserInfo): boolean {
     console.log(user);
-    return user.role == AuthorizationRoles.Admin;
+    return user.role.toString() == "Admin";
   }
 }

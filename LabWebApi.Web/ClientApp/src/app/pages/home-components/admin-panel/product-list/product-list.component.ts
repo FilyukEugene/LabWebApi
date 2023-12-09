@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/core/services/Alert.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from 'src/app/pages/home-components/admin-panel/edit-product-dialog/edit-product-dialog.component';
 import { DetailProductDialogComponent } from 'src/app/pages/home-components/admin-panel/detail-product-dialog/detail-product-dialog.component';
+import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,8 +16,15 @@ import { DetailProductDialogComponent } from 'src/app/pages/home-components/admi
 })
 export class ProductsListComponent implements OnInit {
   products: ProductInfo[];
+  currentUser: UserInfo;
 
-  constructor(private productService: ProductService, private alertService: AlertService, private dialog: MatDialog) { }
+  constructor(private productService: ProductService, private alertService: AlertService, private dialog: MatDialog, private authService: AuthenticationService) { 
+    this.authService.isAuthenticatedWithRefreshToken().then(isAuthenticated => {
+      if (isAuthenticated) {
+        this.currentUser = this.authService.currentUser as UserInfo;
+      }
+    });
+  }
 
   async ngOnInit() {
     this.productService.getProducts().subscribe((data: ProductInfo[]) => this.products =
@@ -24,7 +32,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   isAdminRole(user: UserInfo): boolean {
-    return user.role == AuthorizationRoles.Admin;
+    return user.role.toString() == "Admin";
   }
 
   async editProduct(product: ProductInfo) {
