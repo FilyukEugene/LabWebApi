@@ -22,8 +22,10 @@ import { EditProductDialogComponent } from './pages/home-components/admin-panel/
 import { DetailProductDialogComponent } from './pages/home-components/admin-panel/detail-product-dialog/detail-product-dialog.component';
 import { UsersListComponent } from './pages/home-components/admin-panel/users-list/users-list.component';
 import { ProductsListComponent } from './pages/home-components/admin-panel/product-list/product-list.component';
+import { ProfileComponent } from './pages/home-components/profile/profile.component';
 import { EnumNamePipe } from './core/pipes/EnumNamePipe';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export function tokenGetter() {
@@ -42,6 +44,7 @@ export function tokenGetter() {
     EditUserDialogComponent,
     EditProductDialogComponent,
     DetailProductDialogComponent,
+    ProfileComponent,
     EnumNamePipe
     ],
   imports: [
@@ -54,6 +57,8 @@ export function tokenGetter() {
     RxReactiveFormsModule,
     HttpClientModule,
     MatModule,
+    MatTabsModule,
+    MatToolbarModule,
     JwtModule.forRoot({
       config: {
       tokenGetter

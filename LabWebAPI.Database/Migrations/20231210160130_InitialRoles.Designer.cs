@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabWebAPI.Database.Migrations
 {
     [DbContext(typeof(LabWebApiDbContext))]
-    [Migration("20231209172352_InitialRoles")]
+    [Migration("20231210160130_InitialRoles")]
     partial class InitialRoles
     {
         /// <inheritdoc />

@@ -19,6 +19,7 @@ namespace LabWebApi.Services
             {
                 mc.AddProfile(new ApplicationProfile());
                 mc.AddProfile(new ProductProfile());
+                mc.AddProfile(new UserProfile());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -74,6 +75,7 @@ namespace LabWebApi.Services
                 };
             });
         }
+
 
 
     }

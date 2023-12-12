@@ -8,6 +8,6 @@ namespace LabWebAPI.Contracts.Exceptions
 {
     public class ProductAlreadyExistsException : BadRequestException
     {
-        public ProductAlreadyExistsException(string value) : base($"Product with this {value} was already exists!") {}
+        public ProductAlreadyExistsException(string value) : base($"Product with this was already exists!") {}
     }
 }

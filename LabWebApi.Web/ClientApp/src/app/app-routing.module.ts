@@ -5,6 +5,7 @@ import { RegistrationComponent } from './pages/auth-components/registration/regi
 import { HomeComponent } from './pages/home-components/home/home.component';
 import { UsersListComponent } from './pages/home-components/admin-panel/users-list/users-list.component';
 import { ProductsListComponent } from './pages/home-components/admin-panel/product-list/product-list.component';
+import {ProfileComponent} from "./pages/home-components/profile/profile.component"
 import { AutoLoginGuard } from './core/guards/AutoLoginGuards';
 import { AuthGuard } from './core/guards/AuthGuards';
 import { AdminRoleGuard } from './core/guards/AdminRoleGuards';
@@ -34,6 +35,11 @@ const routes: Routes = [
   path: "users-list",
   component: UsersListComponent,
   canActivate: [AuthGuard, AdminRoleGuard]
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
   path: "products-list",

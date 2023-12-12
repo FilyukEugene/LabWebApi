@@ -50,6 +50,7 @@ app.UseCors(c =>
     c.AllowAnyHeader();
     c.AllowAnyMethod();
 });
+
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {

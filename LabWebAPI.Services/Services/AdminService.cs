@@ -70,6 +70,7 @@ namespace LabWebAPI.Services.Services
         public async Task<IEnumerable<UserInfoDTO>> GetUsersAsync()
         {
             var users = await _userManager.Users.ToListAsync();
+            Console.WriteLine("IRWEYHWBFUENOMJP,KCSDFLMTU");
             var usersInfo = users.Select(user =>
             {
                 var role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();

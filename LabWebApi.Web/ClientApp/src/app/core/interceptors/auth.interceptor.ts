@@ -12,11 +12,8 @@ export class AuthInterceptor implements HttpInterceptor {
         Router) { }
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
-
-        return next.handle(req).pipe(
-            catchError(err => {
-                return this.handle401Error(req, next);
-            }));
+            const token = localStorage.getItem('token')?.toString();
+            return next.handle(this.addTokenHeader(req, token));
     }
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         return this.authService.refreshToken().pipe(

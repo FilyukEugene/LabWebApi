@@ -16,6 +16,7 @@ public class AdminController : ControllerBase
     [HttpGet("users")]
     public async Task<IActionResult> GetUsers()
     {
+        Console.WriteLine("jenoregoengor");
         var result = await _adminService.GetUsersAsync();
         return Ok(result);
     }

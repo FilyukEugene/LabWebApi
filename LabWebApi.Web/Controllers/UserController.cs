@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using LabWebAPI.Contracts.DTO.User;
 using System.Security.Claims;
 using LabWebAPI.Contracts.Services;
+using Microsoft.AspNetCore.SignalR.Protocol;
+using LabWebAPI.Contracts.DTO.AdminPanel;
 
 namespace LabWebApi.Web.Controllers
 {
@@ -21,13 +23,15 @@ namespace LabWebApi.Web.Controllers
             _userService = userService;
             _userRepository = userRepository;
         }
-        [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
         {
-            await _userRepository.AddAsync(user);
-            await _userRepository.SaveChangesAsync();
-            return Ok();
+            Console.WriteLine("here");
+            var result = await _userService.GetProfileAsync(UserId);
+            return Ok(result);
         }
+
 
         [HttpPost("avatar")]
         public async Task<IActionResult> UploadAvatar([FromForm] UserUploadImageDTO file)
@@ -35,6 +39,7 @@ namespace LabWebApi.Web.Controllers
             await _userService.UploadAvatar(file.Image, UserId);
             return Ok();
         }
+
         [HttpGet]
         [Route("avatar")]
         public async Task<FileResult> GetImageAsync()
@@ -43,5 +48,19 @@ namespace LabWebApi.Web.Controllers
             return File(file.Content, file.ContentType, file.Name);
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> EditUserProfile([FromBody] ProfileInfoDTO model)
+        {
+            await _userService.EditUserProfileAsync(model, UserId);
+            return Ok();
+        }
+
+        [HttpPost("changePassword")]
+        public async Task<IActionResult> ChangePasswordProfile([FromBody] ChangePasswordDTO changePasswordDTO)
+        {
+            Console.WriteLine($"{UserId} - HUI");
+            await _userService.ChangePasswordProfileAsync(changePasswordDTO, UserId);
+            return Ok();
+        }
     }
 }
