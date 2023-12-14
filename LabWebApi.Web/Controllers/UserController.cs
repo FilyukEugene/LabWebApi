@@ -55,6 +55,14 @@ namespace LabWebApi.Web.Controllers
             return Ok();
         }
 
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteUserProfile()
+        {
+            string id = UserId;
+            await _userService.DeleteProfileAsync(id);
+            return Ok();
+        }
+
         [HttpPost("changePassword")]
         public async Task<IActionResult> ChangePasswordProfile([FromBody] ChangePasswordDTO changePasswordDTO)
         {

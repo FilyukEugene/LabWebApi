@@ -13,6 +13,9 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { Router } from '@angular/router';
 import { EventEmitterService } from 'src/app/core/services/EventEmitter.service';
 import { ChangePasswordInfo } from 'src/app/core/models/user/ChangePasswordInfo';
+import { AuthenticationService } from
+    'src/app/core/services/Authentication.service';
+
 
 
 @Component({
@@ -36,7 +39,8 @@ export class ProfileComponent implements OnInit , OnDestroy{
     public validationService: InputValidationService,
     private eventEmitterService: EventEmitterService,
     private router: Router,
-    private formBuilder: RxFormBuilder
+    private formBuilder: RxFormBuilder,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -98,6 +102,19 @@ export class ProfileComponent implements OnInit , OnDestroy{
     );
   }
   async changePassword(){
-    return 0
+    this.userProfileService.changePassword(this.passwordFormGroup.value).subscribe(
+      () => {
+        this.alertService.successAlert("Successful", "Updated!");
+        this.router.navigate(['profile']);
+        this.eventEmitterService.onComponentInvoke();
+      }
+    );
+  }
+  async deleteProfile(){
+    this.userProfileService.deleteProfile().subscribe(
+      () => {
+        this.alertService.successAlert("Successful", "Updated!");
+      }
+    );
   }
 }
