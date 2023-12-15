@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit , OnDestroy{
   defaultImage: string = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
   display: FormControl = new FormControl("", Validators.required);
   private unsubscribe$ = new Subject<void>();
+  private file: File;
 
   constructor(
     private userProfileService: UserProfileService,
@@ -72,10 +73,18 @@ export class ProfileComponent implements OnInit , OnDestroy{
       this.alertService.errorAlert('Max size is ' + environment.imageSettings.maxSize + ' Mb', 'Error');
       return;
     }
+    
+    this.file = file;
+    const unsafeImg = URL.createObjectURL(this.file);
+    this.image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+  }
 
-    this.userProfileService.updateUserImage(file).subscribe(() => {
-      const unsafeImg = URL.createObjectURL(file);
+  saveImage(event: any) {
+
+    this.userProfileService.updateUserImage(this.file).subscribe(() => {
+      const unsafeImg = URL.createObjectURL(this.file);
       this.image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      this.alertService.successAlert("Successful","save image");
     });
   }
 

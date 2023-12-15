@@ -6,8 +6,11 @@
   <div class="center-screen" style="padding-top: 20px;">
   <button mat-raised-button color="primary" (click)="fileInput.click()">
   <span>Upload</span>
-  <input #fileInput type="file" [accept]="getImageTypes()"
-  (change)="uploadImage($event)" style="display:none;"/>
+  <input #fileInput type="file" [accept]="getImageTypes()" (change)="uploadImage($event)" style="display:none;"/>
+  </button>
+
+  <button mat-raised-button color="primary" (click)="saveImage($event)">
+    <span>Save</span>
   </button>
   </div>
   </div>
