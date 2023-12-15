@@ -2,8 +2,10 @@ import { AlertService } from './Alert.service';
 import { catchError, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {userProfileUrl, uploadUserAvatarUrl, updateProfileInfoUrl} from "src/app/configs/userController-endpoints"
+import {userProfileUrl, uploadUserAvatarUrl, updateProfileInfoUrl, 
+  changePasswordInfoUrl, deleteProfileUrl} from "src/app/configs/userController-endpoints"
 import { UserProfile } from 'src/app/core/models/user/UserProfile';
+import { ChangePasswordInfo } from '../models/user/ChangePasswordInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +20,27 @@ export class UserProfileService {
   getUserInfo(): Observable<any> {
     return this.http.get<any>(userProfileUrl);
   }
+
   editProfile(profile: UserProfile):Observable<UserProfile> {
     return this.http.put<UserProfile>(updateProfileInfoUrl, profile).pipe(
       catchError(err => {
         this.alertService.errorAlert(err, "Edit Profile Failed!");
+        return of();
+    }));
+  }
+
+  changePassword(changedPassword: ChangePasswordInfo):Observable<ChangePasswordInfo>{
+    return this.http.post<ChangePasswordInfo>(changePasswordInfoUrl, changedPassword).pipe(
+      catchError(err => {
+        this.alertService.errorAlert(err, "Change password is Failed!");
+        return of();
+    }));
+  }
+
+  deleteProfile(): Observable<any> {
+    return this.http.delete<any>(deleteProfileUrl).pipe(
+      catchError(err => {
+        this.alertService.errorAlert(err, "Delete is Failed!");
         return of();
     }));
   }

@@ -77,19 +77,28 @@
         <p></p>
         <button mat-raised-button color="primary" [disabled]="!formGroup.valid">Save</button>
       </form>
+      <p></p>
+      <button mat-raised-button color="warn" (click)="deleteProfile()">Delete Profile</button>
   </mat-tab>
   <mat-tab label="Password">
   <form [formGroup]="passwordFormGroup" (ngSubmit)="changePassword()">
     <mat-toolbar>
       <mat-form-field>
-        <input matInput type="password" placeholder="Password" formControlName="password" required>
-        <mat-error>{{validationService.getErrorMessage(getPasswordControl("password"))}}</mat-error>
+        <input matInput type="password" placeholder="Current password" formControlName="currentPassword" required>
+        <mat-error>{{validationService.getErrorMessage(getPasswordControl("currentPassword"))}}</mat-error>
       </mat-form-field>
     </mat-toolbar>
     <p></p>
     <mat-toolbar>
       <mat-form-field>
-        <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" required>
+        <input matInput type="password" placeholder="New Password" formControlName="newPassword" required>
+        <mat-error>{{validationService.getErrorMessage(getPasswordControl("newPassword"))}}</mat-error>
+      </mat-form-field>
+    </mat-toolbar>
+    <p></p>
+    <mat-toolbar>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirm New Password" formControlName="confirmPassword" required>
         <mat-error>{{validationService.getErrorMessage(getPasswordControl("confirmPassword"))}}</mat-error>
       </mat-form-field>
     </mat-toolbar>

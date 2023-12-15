@@ -10,6 +10,7 @@ using LabWebAPI.Contracts.Helpers;
 using LabWebAPI.Contracts.DTO.AdminPanel;
 using LabWebAPI.Contracts.Roles;
 using LabWebAPI.Contracts.DTO.User;
+using LabWebAPI.Contracts.Data;
 
 namespace LabWebAPI.Services.Services
 {
@@ -18,6 +19,7 @@ namespace LabWebAPI.Services.Services
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IFileService _fileService;
+        private readonly IRepository<RefreshToken> _refreshTokenRepository;
         private readonly IOptions<ImageSettings> _imageSettings;
         public UserService(UserManager<User> userManager,
         IMapper mapper,
@@ -85,6 +87,13 @@ namespace LabWebAPI.Services.Services
             var user = await _userManager.FindByIdAsync(userId) 
                 ?? throw new UserNotFoundException("User not found!");
             await _userManager.ChangePasswordAsync(user, changePasswordDTO.CurrentPassword, changePasswordDTO.NewPassword);
+        }
+
+        public async Task DeleteProfileAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId) ?? throw new UserNotFoundException("User not found!");
+            await _userManager.RemoveFromRoleAsync(user, await GetUserRoleAsync(user));
+            await _userManager.DeleteAsync(user);
         }
     }
 }

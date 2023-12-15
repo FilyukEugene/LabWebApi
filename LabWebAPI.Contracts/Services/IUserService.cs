@@ -20,5 +20,6 @@ namespace LabWebAPI.Contracts.Services
         Task<DownloadFile> GetUserImageAsync(string userId);
         Task EditUserProfileAsync(ProfileInfoDTO model, string id);
         Task ChangePasswordProfileAsync(ChangePasswordDTO changePasswordDTO, string userId);
+        Task DeleteProfileAsync(string userId);
     }
 }
