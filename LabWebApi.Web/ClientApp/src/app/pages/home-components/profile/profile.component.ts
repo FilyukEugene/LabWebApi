@@ -113,7 +113,11 @@ export class ProfileComponent implements OnInit , OnDestroy{
   async deleteProfile(){
     this.userProfileService.deleteProfile().subscribe(
       () => {
-        this.alertService.successAlert("Successful", "Updated!");
+        this.authService.logout().subscribe(() => {
+          this.router.navigate(['login']);
+          this.alertService.successAlert("Successful", "Updated!");
+          this.eventEmitterService.onComponentInvoke();
+        })
       }
     );
   }

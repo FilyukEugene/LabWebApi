@@ -15,19 +15,16 @@ namespace LabWebApi.Web.Controllers
     public class UserController : ControllerBase
     {
         private string UserId => User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        private IRepository<User> _userRepository;
         private IUserService _userService;
 
-        public UserController(IRepository<User> userRepository, IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _userRepository = userRepository;
         }
 
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            Console.WriteLine("here");
             var result = await _userService.GetProfileAsync(UserId);
             return Ok(result);
         }
@@ -66,7 +63,6 @@ namespace LabWebApi.Web.Controllers
         [HttpPost("changePassword")]
         public async Task<IActionResult> ChangePasswordProfile([FromBody] ChangePasswordDTO changePasswordDTO)
         {
-            Console.WriteLine($"{UserId} - HUI");
             await _userService.ChangePasswordProfileAsync(changePasswordDTO, UserId);
             return Ok();
         }

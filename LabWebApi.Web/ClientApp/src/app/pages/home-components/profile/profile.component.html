@@ -73,9 +73,9 @@
         </mat-toolbar>
         <p></p>
         <button mat-raised-button color="primary" [disabled]="!formGroup.valid">Save</button>
-        <p></p>
-        <button mat-raised-button color="warn" (click)="deleteProfile()">Delete Profile</button>
       </form>
+      <p></p>
+      <button mat-raised-button color="warn" (click)="deleteProfile()">Delete Profile</button>
   </mat-tab>
   <mat-tab label="Password">
   <form [formGroup]="passwordFormGroup" (ngSubmit)="changePassword()">
