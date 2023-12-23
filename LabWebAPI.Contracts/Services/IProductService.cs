@@ -1,11 +1,4 @@
-﻿using LabWebAPI.Contracts.Data.Entities;
-using LabWebAPI.Contracts.DTO.AdminPanel;
-using LabWebAPI.Contracts.DTO.AdminPanel.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LabWebAPI.Contracts.DTO.AdminPanel.Product;
 
 namespace LabWebAPI.Contracts.Services
 {

@@ -14,6 +14,11 @@ namespace LabWebAPI.Database.Data
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
         }
+        public void DeleteWhere(Expression<Func<TEntity, bool>> condition)
+        {
+            var entitiesToDelete = _dbSet.Where(condition);
+            _dbSet.RemoveRange(entitiesToDelete);
+        }
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             return (await _dbSet.AddAsync(entity)).Entity;
@@ -41,6 +46,11 @@ namespace LabWebAPI.Database.Data
            EntityState.Modified);
         }
 
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
         public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
             var query = includes
@@ -49,5 +59,6 @@ namespace LabWebAPI.Database.Data
 
             return query;
         }
+
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LabWebAPI.Contracts.Data.Entities
+﻿namespace LabWebAPI.Contracts.Data.Entities
 {
     public class Product : IBaseEntity
     {
@@ -16,5 +9,9 @@ namespace LabWebAPI.Contracts.Data.Entities
         public decimal Price { get; set; }
         public string UserWhoCreatedId { get; set; }
         public User UserWhoCreated { get; set; } = null!;
+        public ICollection<Comment> Comments
+        {
+            get; set;
+        }
     }
 }

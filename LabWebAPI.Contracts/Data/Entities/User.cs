@@ -10,5 +10,9 @@ namespace LabWebAPI.Contracts.Data.Entities
         public string ImageAvatarUrl { get; set; }
 
         public ICollection<Product> Products { get; } = new List<Product>();
+        public ICollection<Comment> Comments
+        {
+            get; set;
+        }
     }
 }

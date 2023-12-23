@@ -17,6 +17,10 @@ namespace LabWebAPI.Contracts.Data
         Task<int> SaveChangesAsync();
 
         IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+
+        Task<TEntity> GetByIdAsync(int id);
+
+        void DeleteWhere(Expression<Func<TEntity, bool>> condition);
     }
 
 }

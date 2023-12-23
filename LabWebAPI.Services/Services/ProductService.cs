@@ -1,17 +1,9 @@
 ﻿using LabWebAPI.Contracts.Data.Entities;
 using LabWebAPI.Contracts.Data;
 using LabWebAPI.Contracts.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using LabWebAPI.Contracts.DTO.AdminPanel.Product;
-using LabWebAPI.Contracts.DTO.AdminPanel;
-using LabWebAPI.Contracts.Roles;
-using System.Runtime.Intrinsics.X86;
 using LabWebAPI.Contracts.Exceptions;
 using LabWebAPI.Services.Validators;
 
@@ -21,9 +13,10 @@ namespace LabWebAPI.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Comment> _commentRepository;
         private readonly IAdminService _adminService;
         private readonly UserManager<User> _userManager;
-
+       
         public ProductService(IMapper mapper, 
             IRepository<Product> productRepository, 
             IAdminService adminService, 
@@ -96,8 +89,12 @@ namespace LabWebAPI.Services.Services
                 throw new BadRequestException("Permissons denied");
             }
 
-            await _productRepository.DeleteAsync(product);
-            await _productRepository.SaveChangesAsync();
+            if (product != null)
+            {
+                _commentRepository.DeleteWhere(c => c.ProductId == id);
+                await _productRepository.DeleteAsync(product);
+                await _productRepository.SaveChangesAsync();
+            }
         }
 
         public async Task CreateProductAsync(CreateProductDTO model, string userId)

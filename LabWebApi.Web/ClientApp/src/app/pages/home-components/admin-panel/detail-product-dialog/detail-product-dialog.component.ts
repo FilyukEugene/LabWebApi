@@ -6,6 +6,7 @@ import { ProductInfo } from 'src/app/core/models/products/ProductInfo';
 import { InputValidationService } from
   'src/app/core/services/InputValidation.service';
 import { AuthorizationRoles } from 'src/app/configs/auth-roles';
+import { CommentService } from 'src/app/core/services/Comment.service';
 @Component({
   selector: 'app-detail-product-dialog',
   templateUrl: './detail-product-dialog.component.html',
@@ -13,10 +14,12 @@ import { AuthorizationRoles } from 'src/app/configs/auth-roles';
 })
 export class DetailProductDialogComponent implements OnInit {
   formGroup: FormGroup;
+
   constructor(private dialogRef: MatDialogRef<DetailProductDialogComponent>,
     public validationService: InputValidationService,
     @Inject(MAT_DIALOG_DATA) public data: ProductInfo,
-    private formBuilder: RxFormBuilder) { }
+    private formBuilder: RxFormBuilder,
+    private commentService: CommentService) { }
   get userRoles(): typeof AuthorizationRoles {
     return AuthorizationRoles;
   }
