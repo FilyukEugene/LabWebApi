@@ -2,7 +2,7 @@
     <h1>Products</h1>
   </mat-card>
   <div class="data-table">
-    <ngx-datatable class="material" [rows]="products" columnMode="force" [headerHeight]="50" [footerHeight]="50"
+    <ngx-datatable class="bootstrap" [rows]="products" columnMode="force" [headerHeight]="50" [footerHeight]="50"
       rowHeight="auto" [trackByProp]="'updated'" [scrollbarH]="true">
       <ngx-datatable-column name="Name" prop="name">
         <ng-template let-row="row" ngx-datatable-cell-template>

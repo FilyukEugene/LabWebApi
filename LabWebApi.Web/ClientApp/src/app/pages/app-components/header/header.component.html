@@ -4,6 +4,10 @@
   <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
   </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+  <button mat-button routerLink="/profile">
+    <mat-icon>account_circle</mat-icon>
+    Profile
+  </button> 
   <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
   <mat-icon>power_settings_new</mat-icon>
   Login
