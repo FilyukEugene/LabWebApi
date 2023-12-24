@@ -14,6 +14,7 @@ import { CommentService } from 'src/app/core/services/Comment.service';
 })
 export class DetailProductDialogComponent implements OnInit {
   formGroup: FormGroup;
+  productId: number;
 
   constructor(private dialogRef: MatDialogRef<DetailProductDialogComponent>,
     public validationService: InputValidationService,
@@ -26,6 +27,8 @@ export class DetailProductDialogComponent implements OnInit {
   ngOnInit() {
     this.formGroup = this.formBuilder.formGroup(new ProductInfo());
     this.formGroup.patchValue(this.data);
+    this.productId = this.data.id
+    
   }
   onCancelClick(): void {
     this.dialogRef.close();

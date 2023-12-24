@@ -13,6 +13,7 @@ import { AuthorizationRoles } from 'src/app/configs/auth-roles';
 })
 export class EditProductDialogComponent implements OnInit {
   formGroup: FormGroup;
+
   constructor(private dialogRef: MatDialogRef<EditProductDialogComponent>,
     public validationService: InputValidationService,
     @Inject(MAT_DIALOG_DATA) public data: ProductInfo,
