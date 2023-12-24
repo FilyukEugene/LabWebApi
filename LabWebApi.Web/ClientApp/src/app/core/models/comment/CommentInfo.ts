@@ -1,8 +1,9 @@
+import { UserInfo } from "../admin/UserInfo";
 
-export interface Comment {
-    id: number;
-    text: string;
-    userId: string;
-    productId: number;
-  }
+export class Comment {
+  id: number;
+  text: string;
+  User: UserInfo;
+  productId: number;
+}
   

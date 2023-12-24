@@ -5,27 +5,42 @@ using LabWebAPI.Contracts.DTO.Comment;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 using AutoMapper;
+using LabWebAPI.Contracts.DTO.AdminPanel.Product;
 
 namespace LabWebAPI.Services.Services
 {
     public class CommentService : ICommentService
     {
         private protected readonly IMapper _mapper;
+        private readonly IAdminService _adminService;
         private readonly IRepository<Comment> _commentRepository;
-        public CommentService(IRepository<Comment> commentRepository, IMapper mapper)
+        public CommentService(IRepository<Comment> commentRepository, 
+            IMapper mapper,
+            IAdminService adminService)
         {
             _mapper = mapper;
             _commentRepository = commentRepository;
+            _adminService = adminService;
         }
         public async Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int productId)
         {
-
             var comments = _commentRepository.Query()
                 .Where(x => x.ProductId == productId)
                 .ToList();
 
-            var commentDTOs = _mapper.Map<IEnumerable<CommentDTO>>(comments);
-            return commentDTOs;
+            var commentsInfo = comments.Select(comment =>
+            {
+                var user = _adminService.GetUserByIdAsync(comment.UserId).Result;
+                return new CommentDTO()
+                {
+                    Id = comment.Id,
+                    Text = comment.Text,
+                    ProductId = productId,
+                    User = user,
+                };
+            })
+           .ToList();
+            return commentsInfo;
         }
 
         public async Task<CreateCommentDTO> AddCommentAsync(CreateCommentDTO comment)
