@@ -120,6 +120,9 @@ export class ProfileComponent implements OnInit , OnDestroy{
     );
   }
   async deleteProfile(){
+    const confirmed = await this.alertService.okCancalAlert(`Do you really want 
+    to delete this profile?`);
+    if (confirmed) {
     this.userProfileService.deleteProfile().subscribe(
       () => {
         this.authService.logout().subscribe(() => {
@@ -129,5 +132,6 @@ export class ProfileComponent implements OnInit , OnDestroy{
         })
       }
     );
+    }
   }
 }
