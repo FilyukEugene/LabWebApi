@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LabWebAPI.Contracts.DTO.AdminPanel;
 
 namespace LabWebAPI.Contracts.DTO.Comment
 {
@@ -12,7 +13,7 @@ namespace LabWebAPI.Contracts.DTO.Comment
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public string UserId { get; set; }
+        public UserInfoDTO User { get; set; }
         public int ProductId { get; set; }
 
     }
