@@ -20,7 +20,7 @@ namespace LabWebAPI.Database.Data.Configurations
             builder.HasOne(c => c.User)
             .WithMany(u => u.Comments)
             .HasForeignKey(c => c.UserId)
-            .OnDelete(DeleteBehavior.Cascade); // Приклад каскадного видалення
+            .OnDelete(DeleteBehavior.Restrict); // Приклад каскадного видалення
                                                // Зв'язок з продуктом
             builder.HasOne(c => c.Product)
             .WithMany(p => p.Comments)

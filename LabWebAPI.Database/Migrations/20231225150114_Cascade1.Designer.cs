@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabWebAPI.Database.Migrations
 {
     [DbContext(typeof(LabWebApiDbContext))]
-    [Migration("20231210160130_InitialRoles")]
-    partial class InitialRoles
+    [Migration("20231225150114_Cascade1")]
+    partial class Cascade1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace LabWebAPI.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("CommentId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Product", b =>
                 {
@@ -298,12 +328,31 @@ namespace LabWebAPI.Database.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("LabWebAPI.Contracts.Data.Entities.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Product", b =>
                 {
                     b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "UserWhoCreated")
                         .WithMany("Products")
                         .HasForeignKey("UserWhoCreatedId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("UserWhoCreated");
@@ -371,8 +420,15 @@ namespace LabWebAPI.Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.Product", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("LabWebAPI.Contracts.Data.Entities.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
