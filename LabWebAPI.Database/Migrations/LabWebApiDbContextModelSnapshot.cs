@@ -336,7 +336,7 @@ namespace LabWebAPI.Database.Migrations
                     b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -349,7 +349,7 @@ namespace LabWebAPI.Database.Migrations
                     b.HasOne("LabWebAPI.Contracts.Data.Entities.User", "UserWhoCreated")
                         .WithMany("Products")
                         .HasForeignKey("UserWhoCreatedId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("UserWhoCreated");
