@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabWebAPI.Database.Migrations
 {
     [DbContext(typeof(LabWebApiDbContext))]
-    [Migration("20231225150114_Cascade1")]
+    [Migration("20231225153857_Cascade1")]
     partial class Cascade1
     {
         /// <inheritdoc />
