@@ -1,4 +1,5 @@
 import {required} from "@rxweb/reactive-form-validators";
+import { UserInfo } from '../admin/UserInfo';
 
 export class ProductInfo {
     @required()
@@ -15,4 +16,6 @@ export class ProductInfo {
 
     @required()
     price: Number;
+
+    userWhoCreated: UserInfo;
 }

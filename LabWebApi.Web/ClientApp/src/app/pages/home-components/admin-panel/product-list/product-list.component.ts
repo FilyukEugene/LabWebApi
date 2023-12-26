@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthorizationRoles } from 'src/app/configs/auth-roles';
 import { UserInfo } from 'src/app/core/models/admin/UserInfo';
 import { ProductInfo } from 'src/app/core/models/products/ProductInfo';
+import { CreatedProductInfo } from 'src/app/core/models/products/CreatedProductInfo';
 import { ProductService } from 'src/app/core/services/Product.service';
 import { AlertService } from 'src/app/core/services/Alert.service';
 import { MatDialog } from '@angular/material/dialog';
+import { AddProductDialogComponent } from 'src/app/pages/home-components/admin-panel/add-product-dialog/add-product-dialog.component';
 import { EditProductDialogComponent } from 'src/app/pages/home-components/admin-panel/edit-product-dialog/edit-product-dialog.component';
 import { DetailProductDialogComponent } from 'src/app/pages/home-components/admin-panel/detail-product-dialog/detail-product-dialog.component';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
@@ -16,23 +19,62 @@ import { AuthenticationService } from 'src/app/core/services/Authentication.serv
 })
 export class ProductsListComponent implements OnInit {
   products: ProductInfo[];
+  filteredProducts: ProductInfo[] = [];
   currentUser: UserInfo;
+  searchControl = new FormControl('');
 
   constructor(private productService: ProductService, private alertService: AlertService, private dialog: MatDialog, private authService: AuthenticationService) { 
+    this.searchControl = new FormControl('');
     this.authService.isAuthenticatedWithRefreshToken().then(isAuthenticated => {
       if (isAuthenticated) {
         this.currentUser = this.authService.currentUser as UserInfo;
       }
     });
+    this.searchControl.valueChanges.subscribe((value) => {
+      if (value) {
+        const term = value.toLowerCase();
+        this.filteredProducts = this.products.filter((product) =>
+          product.name.toLowerCase().includes(term)
+        );
+      } else {
+        this.filteredProducts = [...this.products];
+      }
+    });
   }
 
   async ngOnInit() {
-    this.productService.getProducts().subscribe((data: ProductInfo[]) => this.products =
-      data);
+    
+    this.productService.getProducts().subscribe((data: ProductInfo[]) => {
+      if (this.currentUser.role.toString() == "Seller") {
+        this.products = data.filter(product => product.userWhoCreated.id == this.currentUser.id);
+      } else {
+        this.products = data;
+      }
+    });
   }
 
-  isAdminRole(user: UserInfo): boolean {
-    return user.role.toString() == "Admin";
+  isAdminOrOwnerRole(user: UserInfo, product: ProductInfo): boolean {
+    return user.role.toString() == "Admin" || product.userWhoCreated.id == this.currentUser.id
+  }
+
+  isSellerRole(user: UserInfo){
+    return user.role.toString() == "Seller"
+  }
+  async addProduct(){
+    const dialogRef = this.dialog.open(AddProductDialogComponent);
+    dialogRef.afterClosed().subscribe((result: CreatedProductInfo) => {
+      if (result) {
+        this.productService.addProduct(result).subscribe((data: ProductInfo) => {
+          console.log(data)
+          if (data) {
+            this.products.push(data);
+            this.products = [...this.products];
+          } else {
+            this.alertService.errorAlert("Add Product", "Failed!");
+          }
+        });
+      }
+    });
   }
 
   async editProduct(product: ProductInfo) {

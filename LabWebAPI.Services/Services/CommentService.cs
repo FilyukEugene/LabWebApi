@@ -43,14 +43,16 @@ namespace LabWebAPI.Services.Services
             return commentsInfo;
         }
 
-        public async Task<CreateCommentDTO> AddCommentAsync(CreateCommentDTO comment)
+        public async Task<CommentDTO> AddCommentAsync(CreateCommentDTO comment)
         {
             var commentEntity = _mapper.Map<Comment>(comment);
 
             var result = await _commentRepository.AddAsync(commentEntity);
             await _commentRepository.SaveChangesAsync();
+            var user = _adminService.GetUserByIdAsync(comment.UserId).Result;
 
-            var response = _mapper.Map<CreateCommentDTO>(result);
+            var response = _mapper.Map<CommentDTO>(result);
+            response.User = user;
             return response;
         }
         public async Task DeleteCommentAsync(int commentId)

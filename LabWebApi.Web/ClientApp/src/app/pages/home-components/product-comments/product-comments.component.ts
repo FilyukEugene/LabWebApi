@@ -50,10 +50,10 @@ export class ProductCommentsComponent implements OnInit {
 
   addComment() {
     if (this.newCommentText.trim() !== '') {
-      this.comments.push({ text: this.newCommentText , user: this.currentUser});
       this.comment = new CommentCreateInfo(this.newCommentText, this.currentUser.id, this.productId)
       this.commentService.addComment(this.comment).subscribe(
-        () => {
+        (data: any) => {
+          this.comments.push(data);
           this.alertService.successAlert("Successful", "Comment Added!");
           this.eventEmitterService.onComponentInvoke();
         }
@@ -64,6 +64,7 @@ export class ProductCommentsComponent implements OnInit {
   async deleteComment(commentId: number, commentIndex: number){
     const confirmed = await this.alertService.okCancalAlert(`Do you really want 
     to delete this comment?`);
+    console.log(commentId)
     if (confirmed) {
       this.commentService.deleteComment(commentId).subscribe(() => {
         this.comments.splice(commentIndex, 1);

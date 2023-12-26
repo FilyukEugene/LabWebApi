@@ -12,6 +12,10 @@
   <mat-icon>exit_to_app</mat-icon>
   Logout
   </button>
+  <button mat-button routerLink="/profile" *ngIf="isAuthenticated">
+    <mat-icon>person</mat-icon>
+    Profile
+  </button>
   </div>
   <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
   <mat-icon>menu</mat-icon>

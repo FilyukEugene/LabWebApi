@@ -6,7 +6,7 @@ namespace LabWebAPI.Contracts.Services
     public interface ICommentService
     {
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int productId);
-        Task<CreateCommentDTO> AddCommentAsync(CreateCommentDTO comment);
+        Task<CommentDTO> AddCommentAsync(CreateCommentDTO comment);
         Task DeleteCommentAsync(int commentId);
     }
 }

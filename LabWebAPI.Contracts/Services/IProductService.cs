@@ -8,6 +8,6 @@ namespace LabWebAPI.Contracts.Services
         Task<ProductInfoDTO> GetProductByIdAsync(int id);
         Task<ProductInfoDTO> EditProductAsync(UpdateProductDTO model, string userId, int id);
         Task DeleteProductAsync(int id, string userId);
-        Task CreateProductAsync(CreateProductDTO model, string userId);
+        Task<ProductInfoDTO> CreateProductAsync(CreateProductDTO model, string userId);
     }
 }

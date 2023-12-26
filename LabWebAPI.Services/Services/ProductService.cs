@@ -97,7 +97,7 @@ namespace LabWebAPI.Services.Services
             }
         }
 
-        public async Task CreateProductAsync(CreateProductDTO model, string userId)
+        public async Task<ProductInfoDTO> CreateProductAsync(CreateProductDTO model, string userId)
         {
             if (await Validator.IsUnigueProduct(_productRepository, model.Name))
             {
@@ -109,6 +109,11 @@ namespace LabWebAPI.Services.Services
             product.UserWhoCreated = user;
             await _productRepository.AddAsync(product);
             await _productRepository.SaveChangesAsync();
+
+            var returnModel = new ProductInfoDTO();
+            _mapper.Map(product, returnModel);
+
+            return returnModel;
         }
     }
 }

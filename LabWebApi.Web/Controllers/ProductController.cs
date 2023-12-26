@@ -40,8 +40,8 @@ namespace LabWebApi.Web.Controllers
         [Route("create")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDTO model)
         {
-            await _productService.CreateProductAsync(model, UserId);
-            return Ok();
+            var result = await _productService.CreateProductAsync(model, UserId);
+            return Ok(result);
         }
 
         [HttpPut("update/{id}")]

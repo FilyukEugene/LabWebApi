@@ -120,14 +120,18 @@ export class ProfileComponent implements OnInit , OnDestroy{
     );
   }
   async deleteProfile(){
-    this.userProfileService.deleteProfile().subscribe(
-      () => {
-        this.authService.logout().subscribe(() => {
-          this.router.navigate(['login']);
-          this.alertService.successAlert("Successful", "Updated!");
-          this.eventEmitterService.onComponentInvoke();
-        })
-      }
-    );
+    const confirmed = await this.alertService.okCancalAlert(`Do you really want 
+    to delete profile?`);
+    if (confirmed) {
+      this.userProfileService.deleteProfile().subscribe(
+        () => {
+          this.authService.logout().subscribe(() => {
+            this.router.navigate(['login']);
+            this.alertService.successAlert("Successful", "Updated!");
+            this.eventEmitterService.onComponentInvoke();
+          })
+        }
+      );
+    }
   }
 }
