@@ -91,7 +91,6 @@ namespace LabWebAPI.Services.Services
 
             if (product != null)
             {
-                _commentRepository.DeleteWhere(c => c.ProductId == id);
                 await _productRepository.DeleteAsync(product);
                 await _productRepository.SaveChangesAsync();
             }
